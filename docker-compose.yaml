@@ -1,0 +1,10 @@
+version: '3.7'
+name: up-devops-website-project
+
+services:
+  app:
+    image: ghcr.io/kbtdevops/website
+    container_name: up-devops-website
+    restart: always
+    ports:
+      - '8080:80'
