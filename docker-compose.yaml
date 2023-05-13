@@ -1,10 +1,29 @@
 version: '3.7'
-name: up-devops-website-project
 
 services:
-  app:
-    image: ghcr.io/kbtdevops/website
-    container_name: up-devops-website
-    restart: always
+  website-service:
+      image:  ghcr.io/kbtdevops/website
+      ports:
+        - '8080:80'
+      deploy:
+        mode: global
+        #replicas: 1
+        update_config:
+          parallelism: 1
+          order: start-first
+          failure_action: rollback
+        restart_policy:
+          condition: on-failure
+  
+  haproxy:
+    image: ghcr.io/kbtdevops/website/haproxy:latest
     ports:
-      - '8080:80'
+      - 80:80
+    deploy:
+      mode: global
+      update_config:
+        parallelism: 1
+        order: start-first
+        failure_action: rollback
+      restart_policy:
+        condition: on-failure
