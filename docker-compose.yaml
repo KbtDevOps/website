@@ -16,7 +16,7 @@ services:
           condition: on-failure
   
   haproxy:
-    image: ghcr.io/kbtdevops/website/haproxy:latest
+    image: ghcr.io/kbtdevops/website/haproxy
     ports:
       - 80:80
     deploy:
